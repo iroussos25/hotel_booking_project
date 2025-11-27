@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { assets, facilityIcons, roomsDummyData } from '../assets/assets'
+import { assets, facilityIcons, roomCommonData, roomsDummyData } from '../assets/assets'
 import StarRating from '../components/StarRating'
 
 const RoomDetails = () => {
@@ -75,7 +75,7 @@ const RoomDetails = () => {
             <div className='w-px h-15 bg-gray-300/70 max-md:hidden'></div>
             <div className='flex flex-col'>
                 <label htmlFor="guests" className='font-medium'>Guests</label>
-                <input type="number" id='guests' placeholder='0' className='max-w-2 rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none' required/>
+                <input type="number" id='guests' placeholder='0' className='max-w-15 rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none' required/>
             </div>
 
         </div>
@@ -84,6 +84,36 @@ const RoomDetails = () => {
            Check Availability
         </button>
     </form>
+
+    {/* Common Specifications */}
+    <div className='mt-25 space-y-4'>
+        {roomCommonData.map((spec, index)=>(
+            <div key={index} className='flex items-start gap-2'>
+                <img src={spec.icon} alt={`${spec.title}-icon`} className='w-6.5' />
+                <div>
+                    <p className='text-base'>{spec.title}</p>
+                    <p className='text-gray-500'>{spec.description}</p>
+                </div>
+            </div>
+        ))}
+    </div>
+    <div className='max-w-3xl border-y border-gray-300 my-15 py-10 text-gray-500'>
+        <p>Guests will be allocated on the ground floor according to availability. You get a comfortable two-bedroom apartment that has a true city feeling. The price quoted is for two guests; in the guest slot please mark the number of guests for the exact price for groups.</p>
+    </div>
+    {/* Hosted By  */}
+    <div className='flex flex-col items-start gap-4'>
+        <div className='flex gap-4'>
+            <img src={room.hotel.owner.image} alt="Host" className='h-14 w-14 md:h-18 md:w-18 rounded-full'/>
+            </div>
+    <div>
+        <p className='text-lg md:text-xl'>Hosted By {room.hotel.name}</p>
+        <div className='flex items-center mt-1'>
+            <StarRating />
+            <p className='ml-2'>200+ reviews</p>
+        </div>
+    </div>
+    </div>
+    <button className='px-6 py-2.5 mt-4 rounded text-white bg-primary hover:bg-primary-dull transition-all cursor-pointer'>Contact Now</button>
     </div>
   )
 }

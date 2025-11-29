@@ -6,7 +6,9 @@ import StarRating from '../components/StarRating';
 const CheckBox = ({label, selected = false, onChange = ()=> {}})=>{
     return (
         <label className='flex gap-3 items-center cursor-pointer mt-2 text-sm'>
-            <input type="checkbox" checked={selected} onChange={(e)=>onChange(e.target.checked, label)} />
+            <input type="checkbox" 
+            //checked={selected} 
+            onChange={(e)=>onChange(e.target.checked, label)} />
             <span className='font-light select-none'>{label}</span>
         </label>
     )
@@ -15,11 +17,23 @@ const CheckBox = ({label, selected = false, onChange = ()=> {}})=>{
 const RadioButton = ({label, selected = false, onChange = ()=> {}})=>{
     return (
         <label className='flex gap-3 items-center cursor-pointer mt-2 text-sm'>
-            <input type="radio" name='sortOption' checked={selected} onChange={()=>onChange(label)} />
+            <input type="radio" name='sortOption' 
+            // checked={selected} 
+            onChange={()=>onChange(label)} />
             <span className='font-light select-none'>{label}</span>
         </label>
     )
 
+}
+
+const FilterComponent=() =>{
+    const intialOptions =[roomTypes, priceRanges, sortOptions];
+    const [selectedLabels, setSelectedLabels]=useState([]);
+    const [isCleared, setICleared] = useState(false);
+    const clearSelections = () => {
+        setSelectedLabels([]);
+        setICleared(true);
+    }
 }
 
 const AllRooms = () => {
@@ -94,7 +108,7 @@ const AllRooms = () => {
             <p className='text-base font-medium text-gray-800'>FILTERS</p>
             <div className='text-xs cursor-pointer'>
                 <span onClick={()=> setOpenFilters(!openFilters)} className='lg:hidden'>{openFilters ? 'HIDE' : 'SHOW'}</span>
-                <span className='hidden lg:block'>CLEAR</span>
+                <span onClick={()=>clearSelections()} className='hidden lg:block'>CLEAR</span>
             </div>
         </div>
         <div className={`${openFilters ? 'h-auto' : "h-0 lg:h-auto"} overflow-hidden transition-all duration-700`}>
